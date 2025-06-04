@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quantity Selector</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .selector-container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    .quantity-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background-color: #007bff;
+      color: white;
+      margin: 0 10px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .quantity {
+      font-size: 20px;
+      width: 40px;
+      text-align: center;
+    }
+
+    .total {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="selector-container">
+    <h3>Quantity Selector</h3>
+    <div class="quantity-box">
+      <button id="decrease">–</button>
+      <span class="quantity" id="quantity">1</span>
+      <button id="increase">+</button>
+    </div>
+    <div class="total" id="total">Total: Rs 299</div>
+  </div>
+
+  <script>
+    const decreaseBtn = document.getElementById('decrease');
+    const increaseBtn = document.getElementById('increase');
+    const quantitySpan = document.getElementById('quantity');
+    const totalDiv = document.getElementById('total');
+
+    let quantity = 1;
+    const pricePerItem = 299;
+
+    const updateDisplay = () => {
+      quantitySpan.textContent = quantity;
+      totalDiv.textContent = `Total: Rs ${quantity * pricePerItem}`;
+    };
+
+    decreaseBtn.addEventListener('click', () => {
+      if (quantity > 1) {
+        quantity--;
+        updateDisplay();
+      }
+    });
+
+    increaseBtn.addEventListener('click', () => {
+      if (quantity < 5) {
+        quantity++;
+        updateDisplay();
+      }
+    });
+
+    updateDisplay();
+  </script>
+
+</body>
+</html>
