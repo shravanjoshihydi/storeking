@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Total Price Calculator</title>
+  <style>
+    body{
+        max-width: 400px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #222;
+      min-height: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <label for="prices-input">Enter numbers (comma separated):</label>
+  <input type="text" id="prices-input" placeholder="e.g. 199, 299, 499" />
+  <button id="calc-btn">Calculate Total</button>
+  <div class="result" id="result"></div>
+
+  <script>
+    const input = document.getElementById('prices-input');
+    const button = document.getElementById('calc-btn');
+    const resultDiv = document.getElementById('result');
+
+    button.addEventListener('click', () => {
+      const value = input.value.trim();
+
+      if (!value) {
+        resultDiv.textContent = 'Please enter some numbers!';
+        return;
+      }
+      const numbers = value.split(',')
+                           .map(str => str.trim())
+                           .map(Number);
+      if (numbers.some(isNaN)) {
+        resultDiv.textContent = 'Please enter valid numbers separated by commas.';
+        return;
+      }
+      const total = numbers.reduce((acc, num) => acc + num, 0);
+      resultDiv.textContent = `Total = ${total}`;
+    });
+  </script>
+</body>
+</html>
