@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Cart Simulation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .product {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .product h3 {
+      margin: 10px 0;
+    }
+
+    .product p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .product button {
+      padding: 8px 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .product button:hover {
+      background-color: #218838;
+    }
+
+    .cart-summary {
+      margin-top: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Available Products</h2>
+  <div class="product-list" id="productList"></div>
+  <div class="cart-summary" id="cartTotal">Total Cart Value: Rs 0</div>
+
+  <script>
+    const products = [
+      { name: "Himalayan Face Wash", price: 299, stock: 5 },
+      { name: "Aloe Vera Gel", price: 199, stock: 10 },
+      { name: "Sunscreen Lotion", price: 499, stock: 3 },
+      { name: "Hair Oil", price: 150, stock: 2 }
+    ];
+
+    let cartTotal = 0;
+
+    const productList = document.getElementById("productList");
+    const cartTotalDisplay = document.getElementById("cartTotal");
+
+    function updateCartTotal() {
+      cartTotalDisplay.textContent = `Total Cart Value: Rs ${cartTotal}`;
+    }
+
+    function renderProducts() {
+      productList.innerHTML = "";
+
+      products.forEach((product, index) => {
+        if (product.stock > 0) {
+          const productDiv = document.createElement("div");
+          productDiv.className = "product";
+
+          productDiv.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>Price: Rs ${product.price}</p>
+            <p>In Stock: ${product.stock}</p>
+            <button onclick="addToCart(${index})">Add to Cart</button>
+          `;
+
+          productList.appendChild(productDiv);
+        }
+      });
+    }
+
+    function addToCart(index) {
+      if (products[index].stock > 0) {
+        cartTotal += products[index].price;
+        products[index].stock--;
+        renderProducts();
+        updateCartTotal();
+      }
+    }
+
+    renderProducts();
+    updateCartTotal();
+  </script>
+
+</body>
+</html>
